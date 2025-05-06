@@ -446,20 +446,26 @@
 	<hr>
 	<!-- <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="dnyaneshwar-sakhare" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/dnyaneshwar-sakhare?trk=profile-badge">Dnyaneshwar Sakhare</a></div> -->
 
-<!-- *********RSS FEED AVEC IMAGES**************-->
+<!-- *********RSS FEED ZDNET AVEC IMAGES ET 8 ARTICLES**************-->
 <div id="rss" class="rss-section" style="font-family: Arial, sans-serif; padding: 20px;">
   <h3 class="title" style="font-size: 1.5rem; margin-bottom: 20px;">📰 Actualités ZDNet</h3>
   <div id="rss-feed" style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
 </div>
 
 <script>
+function extractImageFromHTML(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  const img = div.querySelector("img");
+  return img ? img.src : null;
+}
+
 fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/actualites/')
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('rss-feed');
-    data.items.slice(0, 6).forEach(item => {
-      // Récupérer une image si disponible (parfois dans "enclosure" ou "thumbnail")
-      const image = item.thumbnail || 'https://www.zdnet.fr/wp-content/themes/cnet-zdnet/zdnet/assets/images/logos/logo-zdnet.svg';
+    data.items.slice(0, 8).forEach(item => {
+      const image = extractImageFromHTML(item.description) || 'https://www.zdnet.fr/wp-content/themes/cnet-zdnet/zdnet/assets/images/logos/logo-zdnet.svg';
 
       const card = document.createElement('div');
       card.style.border = '1px solid #ddd';
@@ -483,8 +489,6 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/r
     });
   });
 </script>
-
-
 
 
 	<!-- *********FOOTER**************-->
