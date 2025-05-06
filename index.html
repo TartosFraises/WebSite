@@ -446,7 +446,7 @@
 	<hr>
 	<!-- <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="dnyaneshwar-sakhare" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/dnyaneshwar-sakhare?trk=profile-badge">Dnyaneshwar Sakhare</a></div> -->
 
-<!-- *********RSS FEED ZDNET AVEC IMAGES ET 8 ARTICLES**************-->
+<!-- *********RSS FEED ZDNET AVEC IMAGES + 8 ARTICLES**************-->
 <div id="rss" class="rss-section" style="font-family: Arial, sans-serif; padding: 20px;">
   <h3 class="title" style="font-size: 1.5rem; margin-bottom: 20px;">📰 Actualités ZDNet</h3>
   <div id="rss-feed" style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
@@ -466,13 +466,14 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/r
     const container = document.getElementById('rss-feed');
     data.items.slice(0, 8).forEach(item => {
       const image = extractImageFromHTML(item.description) || 'https://www.zdnet.fr/wp-content/themes/cnet-zdnet/zdnet/assets/images/logos/logo-zdnet.svg';
+      const pubDate = new Date(item.pubDate).toLocaleDateString();
 
       const card = document.createElement('div');
       card.style.border = '1px solid #ddd';
       card.style.borderRadius = '12px';
       card.style.overflow = 'hidden';
       card.style.backgroundColor = '#fff';
-      card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.05)';
+      card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.06)';
       card.style.display = 'flex';
       card.style.flexDirection = 'column';
 
@@ -482,13 +483,14 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/r
           <a href="${item.link}" target="_blank" style="text-decoration: none; color: #222;">
             <h4 style="font-size: 1.1rem; margin: 0 0 10px;">${item.title}</h4>
           </a>
-          <p style="font-size: 0.85rem; color: #666; margin: 0;">${new Date(item.pubDate).toLocaleDateString()}</p>
+          <p style="font-size: 0.85rem; color: #666; margin: 0;">${pubDate}</p>
         </div>
       `;
       container.appendChild(card);
     });
   });
 </script>
+
 
 
 	<!-- *********FOOTER**************-->
