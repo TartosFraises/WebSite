@@ -447,14 +447,26 @@
 	<!-- <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="dnyaneshwar-sakhare" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/dnyaneshwar-sakhare?trk=profile-badge">Dnyaneshwar Sakhare</a></div> -->
 
 	<!-- *********RSS FEED**************-->
-	<div id="rss" class="rss-section">
-		<h3 class="title">Actualités</h3>
-		<div style="max-width: 100%; overflow: hidden;">
-			<iframe src="https://www.zdnet.fr/feeds/rss/actualites/" width="100%" height="500" frameborder="0"
-				style="border: none; max-width: 100%; border-radius: 12px;">
-			</iframe>
-		</div>
-	</div>
+<div id="rss" class="rss-section">
+  <h3 class="title">Actualités</h3>
+  <div id="rss-feed" style="max-width: 100%; overflow: hidden; padding: 10px;"></div>
+</div>
+
+<script>
+fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/actualites/')
+  .then(response => response.json())
+  .then(data => {
+    const container = document.getElementById('rss-feed');
+    data.items.slice(0, 5).forEach(item => {
+      const article = document.createElement('div');
+      article.style.marginBottom = "10px";
+      article.innerHTML = `<a href="${item.link}" target="_blank" style="font-weight: bold;">${item.title}</a><br>
+        <small>${new Date(item.pubDate).toLocaleDateString()}</small>`;
+      container.appendChild(article);
+    });
+  });
+</script>
+
 
 
 	<!-- *********FOOTER**************-->
