@@ -446,7 +446,7 @@
 	<hr>
 	<!-- <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="dnyaneshwar-sakhare" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/dnyaneshwar-sakhare?trk=profile-badge">Dnyaneshwar Sakhare</a></div> -->
 
-<!-- *********RSS FEED ZDNET AVEC IMAGES + 8 ARTICLES**************-->
+<!-- *********RSS ZDNet AVEC IMAGES ROBUSTE**************-->
 <div id="rss" class="rss-section" style="font-family: Arial, sans-serif; padding: 20px;">
   <h3 class="title" style="font-size: 1.5rem; margin-bottom: 20px;">📰 Actualités ZDNet</h3>
   <div id="rss-feed" style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
@@ -457,7 +457,8 @@ function extractImageFromHTML(html) {
   const div = document.createElement("div");
   div.innerHTML = html;
   const img = div.querySelector("img");
-  return img ? img.src : null;
+  if (!img) return null;
+  return img.getAttribute("src") || img.getAttribute("data-src");
 }
 
 fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/rss/actualites/')
@@ -490,6 +491,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/r
     });
   });
 </script>
+
 
 
 
