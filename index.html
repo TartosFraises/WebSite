@@ -446,10 +446,10 @@
 	<hr>
 	<!-- <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="dark" data-type="HORIZONTAL" data-vanity="dnyaneshwar-sakhare" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://in.linkedin.com/in/dnyaneshwar-sakhare?trk=profile-badge">Dnyaneshwar Sakhare</a></div> -->
 
-	<!-- *********RSS FEED**************-->
-<div id="rss" class="rss-section">
-  <h3 class="title">Actualités</h3>
-  <div id="rss-feed" style="max-width: 100%; overflow: hidden; padding: 10px;"></div>
+<!-- *********RSS FEED STYLÉ**************-->
+<div id="rss" class="rss-section" style="font-family: Arial, sans-serif; padding: 20px;">
+  <h3 class="title" style="font-size: 1.5rem; margin-bottom: 20px;">📰 Actualités ZDNet</h3>
+  <div id="rss-feed" style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));"></div>
 </div>
 
 <script>
@@ -457,12 +457,20 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=https://www.zdnet.fr/feeds/r
   .then(response => response.json())
   .then(data => {
     const container = document.getElementById('rss-feed');
-    data.items.slice(0, 5).forEach(item => {
-      const article = document.createElement('div');
-      article.style.marginBottom = "10px";
-      article.innerHTML = `<a href="${item.link}" target="_blank" style="font-weight: bold;">${item.title}</a><br>
-        <small>${new Date(item.pubDate).toLocaleDateString()}</small>`;
-      container.appendChild(article);
+    data.items.slice(0, 6).forEach(item => {
+      const card = document.createElement('div');
+      card.style.border = '1px solid #ddd';
+      card.style.borderRadius = '12px';
+      card.style.padding = '16px';
+      card.style.backgroundColor = '#fafafa';
+      card.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+      card.innerHTML = `
+        <a href="${item.link}" target="_blank" style="text-decoration: none; color: #333;">
+          <h4 style="font-size: 1.1rem; margin-bottom: 10px;">${item.title}</h4>
+        </a>
+        <p style="font-size: 0.9rem; color: #666;">${new Date(item.pubDate).toLocaleDateString()}</p>
+      `;
+      container.appendChild(card);
     });
   });
 </script>
